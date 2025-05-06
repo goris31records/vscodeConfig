@@ -5,10 +5,12 @@ sync-to-github:
   stage: sync
   image: alpine:latest
   only:
-    - main  # or your desired branch
+    - main
   script:
     - apk add --no-cache git openssh
     - git config --global user.email "goris31records@gmail.com"
     - git config --global user.name "Wesly Goris"
     - git remote add github https://oauth2:${GITHUB_TOKEN}@github.com/goris31records/vscodeConfig.git
+    - git fetch github
+    - git pull github main --allow-unrelated-histories
     - git push --force github HEAD:main
